@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Seraphiw - Beranda</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">👜 Seraphiw</div>
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">Beranda</a></li>
+      <li><a href="katalog.html">Katalog</a></li>
+      <li><a href="promo.html">Promo</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="contact.html">Kontak</a></li>
+      <li><a href="checkout.html" class="btn-checkout">🛒 Checkout</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- BANNER -->
+<div class="banner">
+  <!-- Gambar Banner -->
+  <img src="images/banner2.jpg" alt="Banner Seraphiw" class="banner-img">
+
+  <!-- Teks di Atas Banner -->
+  <div class="banner-text">
+    <h1> Koleksi Tas Wanita Elegan & Premium </h1>
+    <p>Lengkapi penampilanmu dengan tas stylish dari <b>Seraphiw</b>!</p>
+    <a href="katalog.html" class="btn-banner">Belanja Sekarang</a>
+  </div>
+</div>
+
+<!-- PRODUK UNGGULAN -->
+<div class="container">
+  <h2>Produk Unggulan</h2>
+  <div class="product-grid">
+
+    <!-- Produk 1 -->
+    <div class="product-card">
+      <img src="images/TasElegan.jpg" alt="Tas Elegan">
+      <h3>Tas Elegan</h3>
+      <p>Tas elegan cocok untuk acara resmi.</p>
+      <span>Rp 250.000</span><br>
+      <button onclick="addToCart('Tas Elegan',250000,'images/tas1.jpg')">Tambah ke Keranjang</button>
+    </div>
+
+    <!-- Produk 2 -->
+    <div class="product-card">
+      <img src="images/TasSantai.jpg" alt="Tas Santai">
+      <h3>Tas Santai</h3>
+      <p>Tas casual simpel untuk harian.</p>
+      <span>Rp 180.000</span><br>
+      <button onclick="addToCart('Tas Santai',180000,'images/tas2.jpg')">Tambah ke Keranjang</button>
+    </div>
+
+    <!-- Produk 3 -->
+    <div class="product-card">
+      <img src="images/TasPremium.jpg" alt="Tas Premium">
+      <h3>Tas Premium</h3>
+      <p>Tas kulit asli premium, mewah & elegan.</p>
+      <span>Rp 550.000</span><br>
+      <button onclick="addToCart('Tas Premium',550000,'images/tas3.jpg')">Tambah ke Keranjang</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  function addToCart(title, price, img) {
+    cart.push({title, price, img});
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(title + " ditambahkan ke keranjang!");
+  }
+</script>
+
+</body>
+</html>

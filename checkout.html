@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Seraphiw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">👜 Seraphiw</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="katalog.html">Katalog</a></li>
+      <li><a href="promo.html">Promo</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="contact.html">Kontak</a></li>
+      <li><a href="checkout.html" class="btn-checkout">🛒 Checkout</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- CHECKOUT -->
+<div class="checkout-container">
+  <h2>Checkout</h2>
+  <p>Lengkapi data Anda dan pilih metode pembayaran untuk menyelesaikan pesanan.</p>
+  <div class="checkout-grid">
+
+    <!-- RINGKASAN PESANAN -->
+    <div class="order-summary">
+      <h3>🛍️ Ringkasan Pesanan</h3>
+      <div id="order-items"></div>
+      <div class="order-total">
+        <span>Total:</span><span id="order-total">Rp 0</span>
+      </div>
+    </div>
+
+    <!-- FORM CHECKOUT -->
+    <div class="checkout-form">
+      <form id="checkoutForm">
+        <h3>👩 Data Pembeli</h3>
+        <input type="text" id="nama" placeholder="Nama Lengkap" required>
+        <input type="email" id="email" placeholder="Alamat Email" required>
+        <input type="tel" id="hp" placeholder="No. HP / WhatsApp" required>
+        <textarea id="alamat" placeholder="Alamat Lengkap (Jalan, Kota, Kode Pos)" required></textarea>
+
+        <h3>💳 Metode Pembayaran</h3>
+        <label><input type="radio" name="payment" value="Transfer Bank" required> Transfer Bank (BCA, Mandiri, BRI)</label><br>
+        <label><input type="radio" name="payment" value="E-Wallet"> E-Wallet (OVO, Dana, GoPay)</label><br>
+        <label><input type="radio" name="payment" value="COD"> Cash on Delivery (COD)</label><br>
+
+        <div id="payment-instruction" class="payment-box"></div>
+
+        <button type="submit" class="btn-confirm">Konfirmasi & Bayar</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Ambil data keranjang
+  const orderData = JSON.parse(localStorage.getItem("cart")) || [];
+  const orderItems = document.getElementById("order-items");
+  const totalEl = document.getElementById("order-total");
+  let total = 0;
+
+  // Tampilkan produk di ringkasan
+  orderItems.innerHTML = "";
+  if(orderData.length === 0){
+    orderItems.innerHTML = "<p>Keranjang belanja kosong.</p>";
+  } else {
+    orderData.forEach(item=>{
+      total += item.price;
+      orderItems.innerHTML += `
+        <div class="order-item">
+          <img src="${item.img}" alt="${item.title}">
+          <div>
+            <p><b>${item.title}</b></p>
+            <p>Rp ${item.price.toLocaleString()}</p>
+          </div>
+        </div>
+      `;
+    });
+  }
+  totalEl.textContent = "Rp " + total.toLocaleString();
+
+  // Event ganti metode pembayaran
+  document.querySelectorAll("input[name='payment']").forEach(radio=>{
+    radio.addEventListener("change",(e)=>{
+      const method = e.target.value;
+      const box = document.getElementById("payment-instruction");
+      if(method==="Transfer Bank"){
+        box.innerHTML = `
+          <p>Silakan transfer ke rekening berikut:</p>
+          <ul>
+            <li><b>BCA:</b> 123-456-789 a.n Seraphiw</li>
+            <li><b>Mandiri:</b> 987-654-321 a.n Seraphiw</li>
+          </ul>
+          <p>Konfirmasi pembayaran via WhatsApp setelah transfer.</p>
+        `;
+      } else if(method==="E-Wallet"){
+        box.innerHTML = `
+          <p>Kirim pembayaran ke salah satu nomor berikut:</p>
+          <ul>
+            <li><b>OVO:</b> 0812-3456-7890</li>
+            <li><b>Dana:</b> 0812-3456-7890</li>
+            <li><b>GoPay:</b> 0812-3456-7890</li>
+          </ul>
+        `;
+      } else {
+        box.innerHTML = "<p>Pembayaran dilakukan saat barang diterima (COD).</p>";
+      }
+    });
+  });
+
+  // Submit checkout
+  document.getElementById("checkoutForm").addEventListener("submit",(e)=>{
+    e.preventDefault();
+    if(orderData.length === 0){
+      alert("Keranjang kosong! Tambahkan produk terlebih dahulu.");
+      return;
+    }
+    alert("Pesanan berhasil diproses. Terima kasih!");
+    localStorage.removeItem("cart");
+    window.location.href = "success.html";
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pembayaran Berhasil - Seraphiw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">👜 Seraphiw</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="katalog.html">Katalog</a></li>
+      <li><a href="promo.html">Promo</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="contact.html">Kontak</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- SUCCESS PAGE -->
+<div class="success-container">
+  <div class="success-box">
+    <div class="success-icon">✔</div>
+    <h2>Pembayaran Berhasil!</h2>
+    <p>Terima kasih telah berbelanja di <b>Seraphiw</b> 💖</p>
+    <p>Pesanan Anda sedang kami proses dan akan segera dikirim ke alamat tujuan.</p>
+
+    <div class="order-info">
+      <p><b>No. Pesanan:</b> <span id="order-number"></span></p>
+      <p><b>Tanggal:</b> <span id="order-date"></span></p>
+      <p><b>Status:</b> <span class="status">Diproses</span></p>
+    </div>
+
+    <div class="success-buttons">
+      <a href="index.html" class="btn-primary">🏠 Kembali ke Beranda</a>
+      <a href="katalog.html" class="btn-secondary">👜 Belanja Lagi</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Generate nomor pesanan acak
+  document.getElementById("order-number").textContent = "TC-" + Math.floor(Math.random() * 1000000);
+  
+  // Tanggal hari ini
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("id-ID", { day:"2-digit", month:"long", year:"numeric" });
+  document.getElementById("order-date").textContent = formattedDate;
+</script>
+
+</body>
+</html>
